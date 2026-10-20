@@ -1,0 +1,10 @@
+{
+  "name": "Escala Marítima",
+  "short_name": "Escala Marítima",
+  "description": "Calendário de embarque, folga e compromissos.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f3f6f8",
+  "theme_color": "#123d53",
+  "lang": "pt-BR"
+}

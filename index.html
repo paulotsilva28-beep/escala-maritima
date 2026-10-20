@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#123d53">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Escala Marítima">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Escala Marítima</title>
+<style>
+:root{--navy:#123d53;--blue:#216ba5;--green:#258653;--orange:#ef9a27;--bg:#f3f6f8;--card:#fff;--text:#15232c;--muted:#657680;--line:#e1e8ec;--radius:20px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+button,input,textarea{font:inherit}button{cursor:pointer}.app{max-width:620px;margin:0 auto;padding:calc(12px + env(safe-area-inset-top)) 14px 20px}
+.top{display:flex;align-items:center;justify-content:space-between;margin:4px 2px 14px}.brand{font-size:13px;color:var(--muted);font-weight:800;letter-spacing:.1em}.top h1{font-size:25px;margin:3px 0 0}.iconbtn{border:1px solid var(--line);background:#fff;border-radius:13px;width:44px;height:44px;font-size:20px}
+.hero{border-radius:24px;background:linear-gradient(135deg,#123d53,#216ba5);color:white;padding:20px;margin-bottom:14px;box-shadow:0 8px 22px #123d531a}.hero .eyebrow{font-size:11px;letter-spacing:.13em;font-weight:800;opacity:.75}.hero h2{font-size:28px;margin:8px 0 4px}.hero p{margin:0;font-size:14px;opacity:.9}.hero .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px}.chip{font-size:12px;background:#ffffff20;border:1px solid #ffffff26;padding:7px 10px;border-radius:999px}
+.card{background:var(--card);border:1px solid #e8edf0;border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:0 3px 12px #18384b08}.monthhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.monthhead h3{margin:0;font-size:17px;text-transform:capitalize}.navbtn{border:0;background:#f0f4f6;border-radius:10px;width:36px;height:36px;font-size:18px;color:var(--navy)}.weekdays,.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}.weekdays{margin-bottom:8px}.weekdays span{text-align:center;color:var(--muted);font-size:11px;font-weight:800;padding:3px 0}.day{border:0;border-radius:11px;min-height:43px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:white;font-size:13px;font-weight:700;position:relative}.day.work{background:var(--blue)}.day.rest{background:var(--green)}.day.blank{visibility:hidden}.day.selected{outline:3px solid #f2b544;outline-offset:1px}.day.today:after{content:"";position:absolute;top:4px;right:5px;width:5px;height:5px;border-radius:50%;background:white}.dot{height:4px;width:4px;border-radius:50%;background:#ffd166}.legend{display:flex;gap:13px;flex-wrap:wrap;margin-top:15px;color:var(--muted);font-size:11px}.legend span{display:flex;align-items:center;gap:5px}.swatch{height:9px;width:9px;border-radius:3px}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:10px}.sectionhead h3{font-size:16px;margin:0}.primary{border:0;border-radius:12px;background:var(--navy);color:#fff;padding:11px 14px;font-size:13px;font-weight:750}.secondary{border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--navy);padding:10px 12px;font-size:13px;font-weight:700}.selectedline{display:flex;align-items:center;gap:9px;margin-top:14px;font-size:14px;font-weight:750}.pill{font-size:11px;padding:5px 8px;border-radius:999px;font-weight:800}.pill.work{background:#e3f0fb;color:var(--blue)}.pill.rest{background:#e2f5e9;color:var(--green)}
+.event{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}.event:last-child{border-bottom:0;padding-bottom:0}.eventtime{min-width:55px;font-size:12px;font-weight:800;color:var(--navy);padding-top:2px}.eventbody{flex:1;min-width:0}.eventbody strong{display:block;font-size:14px;overflow-wrap:anywhere}.eventbody p{margin:4px 0 0;color:var(--muted);font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}.delete{border:0;background:transparent;color:#b53d3d;font-size:17px;padding:0 4px;align-self:flex-start}.empty{font-size:13px;color:var(--muted);padding:14px 0 3px}
+.formrow{display:grid;gap:6px;margin:13px 0}.formrow label{font-size:12px;color:var(--muted);font-weight:800}.formrow input,.formrow textarea{width:100%;border:1px solid #d7e0e5;border-radius:12px;padding:12px;background:#fff;color:var(--text);outline:none}.formrow textarea{min-height:78px;resize:vertical}.formrow input:focus,.formrow textarea:focus{border-color:var(--blue)}.check{display:flex;gap:9px;align-items:center;font-size:13px;margin:13px 0}.actions{display:flex;gap:9px}.actions>*{flex:1}.hidden{display:none!important}.notice{font-size:12px;line-height:1.45;color:var(--muted);background:#f4f7f9;border-radius:12px;padding:11px;margin-top:12px}.footer{text-align:center;color:#83919a;font-size:10px;padding:3px 0 10px}
+dialog{border:0;border-radius:22px;width:min(94vw,520px);padding:0;box-shadow:0 20px 80px #061c2c55;max-height:90vh}dialog::backdrop{background:#061c2c77}.modalhead{padding:18px 18px 10px;display:flex;align-items:center;justify-content:space-between}.modalhead h2{font-size:19px;margin:0}.modalbody{padding:0 18px 18px;overflow:auto}.close{border:0;background:#f0f4f6;border-radius:10px;width:36px;height:36px;font-size:19px}
+@media(min-width:500px){.day{min-height:52px}.app{padding-left:20px;padding-right:20px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div><div class="brand">SEU CALENDÁRIO DE BORDO</div><h1>Escala Marítima</h1></div>
+    <button class="iconbtn" id="settingsBtn" aria-label="Configurações">⚙</button>
+  </header>
+  <section class="hero">
+    <div class="eyebrow">SUA ESCALA HOJE</div>
+    <h2 id="todayStatus">EMBARCADO</h2>
+    <p id="todaySub">Sua escala é calculada automaticamente.</p>
+    <div class="chips"><span class="chip" id="workChip">🚢 14 dias embarcado</span><span class="chip" id="restChip">🏠 14 dias de folga</span></div>
+  </section>
+  <section class="card">
+    <div class="monthhead"><button class="navbtn" id="prevMonth" aria-label="Mês anterior">‹</button><h3 id="monthTitle">Outubro 2026</h3><button class="navbtn" id="nextMonth" aria-label="Próximo mês">›</button></div>
+    <div class="weekdays"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+    <div class="grid" id="calendarGrid"></div>
+    <div class="legend"><span><i class="swatch" style="background:var(--blue)"></i>Embarcado</span><span><i class="swatch" style="background:var(--green)"></i>Folga</span><span><i class="swatch" style="background:var(--orange)"></i>Compromisso</span><span>◉ Hoje</span></div>
+  </section>
+  <section class="card">
+    <div class="sectionhead"><h3 id="selectedHeading">Dia selecionado</h3><button class="secondary" id="todayBtn">Hoje</button></div>
+    <div class="selectedline"><span id="selectedPill" class="pill work">Embarcado</span><span id="selectedDescription">Dia de trabalho embarcado.</span></div>
+  </section>
+  <section class="card">
+    <div class="sectionhead"><h3>Compromissos</h3><button class="primary" id="addEventBtn">＋ Adicionar</button></div>
+    <div id="eventsList"></div>
+    <div class="notice">Os compromissos ficam salvos neste aparelho. Para receber alertas, permita notificações quando solicitado. No iPhone, notificações programadas em um site podem depender de suporte do iOS e de conexão; esta versão verifica lembretes quando o app está aberto.</div>
+  </section>
+  <div class="footer">Versão inicial · Escala 14 × 14 · Data inicial 15/10/2026</div>
+</div>
+
+<dialog id="eventDialog">
+  <div class="modalhead"><h2>Novo compromisso</h2><button class="close" data-close="eventDialog">×</button></div>
+  <div class="modalbody">
+    <form id="eventForm">
+      <div class="formrow"><label for="eventTitle">Título *</label><input id="eventTitle" required maxlength="100" placeholder="Ex.: Consulta, reunião..."></div>
+      <div class="formrow"><label for="eventDate">Data e horário</label><input id="eventDate" type="datetime-local" required></div>
+      <div class="formrow"><label for="eventNotes">Observações</label><textarea id="eventNotes" maxlength="500" placeholder="Detalhes opcionais"></textarea></div>
+      <label class="check"><input id="eventReminder" type="checkbox" checked> Lembrar-me deste compromisso</label>
+      <div class="actions"><button type="button" class="secondary" data-close="eventDialog">Cancelar</button><button class="primary" type="submit">Salvar compromisso</button></div>
+    </form>
+  </div>
+</dialog>
+
+<dialog id="settingsDialog">
+  <div class="modalhead"><h2>Configurar escala</h2><button class="close" data-close="settingsDialog">×</button></div>
+  <div class="modalbody">
+    <form id="settingsForm">
+      <div class="formrow"><label for="workDays">Dias embarcado</label><input id="workDays" type="number" min="1" max="90" value="14" required></div>
+      <div class="formrow"><label for="restDays">Dias de folga</label><input id="restDays" type="number" min="1" max="90" value="14" required></div>
+      <div class="formrow"><label for="anchorDate">Primeiro dia embarcado</label><input id="anchorDate" type="date" value="2026-10-15" required></div>
+      <div class="actions"><button type="button" class="secondary" data-close="settingsDialog">Cancelar</button><button class="primary" type="submit">Salvar escala</button></div>
+    </form>
+    <div class="notice">A escala é contínua e não reinicia na virada do mês ou do ano.</div>
+  </div>
+</dialog>
+<script>
+const $ = id => document.getElementById(id);
+const KEY = 'escala-maritima-data-v1';
+const today = new Date(); today.setHours(0,0,0,0);
+let state = {workDays:14,restDays:14,anchorDate:'2026-10-15',events:[]};
+let selected = new Date(today);
+let displayed = new Date(2026,9,1);
+let notifiedIds = new Set();
+
+function load(){
+  try { const saved = JSON.parse(localStorage.getItem(KEY)||'null'); if(saved) state={...state,...saved}; } catch(e){}
+  $('workDays').value=state.workDays; $('restDays').value=state.restDays; $('anchorDate').value=state.anchorDate;
+}
+function save(){ localStorage.setItem(KEY,JSON.stringify(state)); }
+function dateKey(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function fromKey(s){ const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); }
+function startOfDay(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
+function shiftFor(date){
+  const a=fromKey(state.anchorDate), b=startOfDay(date);
+  const diff=Math.round((b-a)/86400000), cycle=Math.max(1,Number(state.workDays)+Number(state.restDays));
+  const pos=((diff%cycle)+cycle)%cycle;
+  return pos<Number(state.workDays)?'work':'rest';
+}
+function shiftLabel(type){return type==='work'?'Embarcado':'Folga';}
+function monthName(d){return d.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});}
+function eventsOn(d){const key=dateKey(d);return state.events.filter(e=>e.date.slice(0,10)===key).sort((a,b)=>a.date.localeCompare(b.date));}
+function render(){
+  $('monthTitle').textContent=monthName(displayed);
+  $('workChip').textContent=`🚢 ${state.workDays} dias embarcado`;
+  $('restChip').textContent=`🏠 ${state.restDays} dias de folga`;
+  const type=shiftFor(today);
+  $('todayStatus').textContent=shiftLabel(type).toUpperCase();
+  const cycle=Number(state.workDays)+Number(state.restDays), diff=Math.floor((today-fromKey(state.anchorDate))/86400000), pos=((diff%cycle)+cycle)%cycle;
+  const remaining=pos<Number(state.workDays)?Number(state.workDays)-pos:cycle-pos;
+  $('todaySub').textContent=`${remaining} dia(s) até a próxima mudança`;
+  const first=new Date(displayed.getFullYear(),displayed.getMonth(),1), days=new Date(displayed.getFullYear(),displayed.getMonth()+1,0).getDate();
+  const offset=first.getDay(), grid=$('calendarGrid'); grid.innerHTML='';
+  for(let i=0;i<offset;i++){const blank=document.createElement('div');blank.className='day blank';grid.appendChild(blank);}
+  for(let n=1;n<=days;n++){
+    const d=new Date(displayed.getFullYear(),displayed.getMonth(),n), type=shiftFor(d), btn=document.createElement('button');
+    btn.className=`day ${type}${dateKey(d)===dateKey(selected)?' selected':''}${dateKey(d)===dateKey(today)?' today':''}`;
+    btn.innerHTML=`<span>${n}</span>${eventsOn(d).length?'<i class="dot"></i>':''}`;
+    btn.setAttribute('aria-label',`${n} ${monthName(displayed)}, ${shiftLabel(type)}${eventsOn(d).length?', tem compromisso':''}`);
+    btn.addEventListener('click',()=>{selected=d;render();});
+    grid.appendChild(btn);
+  }
+  $('selectedHeading').textContent=selected.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const st=shiftFor(selected); $('selectedPill').textContent=shiftLabel(st); $('selectedPill').className=`pill ${st}`;
+  $('selectedDescription').textContent=st==='work'?'Dia de trabalho embarcado.':'Dia de folga em terra.';
+  renderEvents();
+}
+function renderEvents(){
+  const list=$('eventsList'), events=eventsOn(selected); list.innerHTML='';
+  if(!events.length){list.innerHTML='<div class="empty">Nenhum compromisso nesta data.</div>';return;}
+  events.forEach(e=>{
+    const row=document.createElement('div');row.className='event';
+    const dt=new Date(e.date);
+    const time=dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    const body=document.createElement('div');body.className='eventbody';
+    const title=document.createElement('strong');title.textContent=e.title;body.appendChild(title);
+    const t=document.createElement('p');t.textContent=`${time}${e.reminder?' · lembrete ativado':''}`;body.appendChild(t);
+    if(e.notes){const note=document.createElement('p');note.textContent=e.notes;body.appendChild(note);}
+    const del=document.createElement('button');del.className='delete';del.textContent='×';del.setAttribute('aria-label','Excluir compromisso');
+    del.addEventListener('click',()=>{state.events=state.events.filter(x=>x.id!==e.id);save();render();});
+    const timeEl=document.createElement('div');timeEl.className='eventtime';timeEl.textContent=time;
+    row.append(timeEl,body,del);list.appendChild(row);
+  });
+}
+function localDateTimeValue(d){const pad=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;}
+function openEvent(){
+  const d=new Date(selected);d.setHours(9,0,0,0);
+  $('eventDate').value=localDateTimeValue(d);$('eventTitle').value='';$('eventNotes').value='';$('eventReminder').checked=true;
+  $('eventDialog').showModal();
+}
+function maybeNotify(){
+  // Browser notifications are only attempted while the page is open; robust background scheduling needs a push backend.
+  if(!('Notification' in window) || Notification.permission!=='granted')return;
+  const now=Date.now();
+  state.events.forEach(e=>{
+    if(!e.reminder || notifiedIds.has(e.id))return;
+    const t=new Date(e.date).getTime();
+    if(t<=now && t>now-10*60*1000){
+      new Notification(`Compromisso: ${e.title}`,{body:e.notes||'Você tem um compromisso agendado.'});
+      notifiedIds.add(e.id);
+    }
+  });
+}
+$('prevMonth').addEventListener('click',()=>{displayed=new Date(displayed.getFullYear(),displayed.getMonth()-1,1);render();});
+$('nextMonth').addEventListener('click',()=>{displayed=new Date(displayed.getFullYear(),displayed.getMonth()+1,1);render();});
+$('todayBtn').addEventListener('click',()=>{selected=new Date(today);displayed=new Date(today.getFullYear(),today.getMonth(),1);render();});
+$('addEventBtn').addEventListener('click',openEvent);
+$('settingsBtn').addEventListener('click',()=>{$('settingsDialog').showModal();});
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.close).close()));
+$('eventForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const title=$('eventTitle').value.trim(), date=$('eventDate').value;
+  if(!title||!date)return;
+  const reminder=$('eventReminder').checked;
+  if(reminder && 'Notification' in window && Notification.permission==='default'){
+    try{await Notification.requestPermission();}catch(e){}
+  }
+  state.events.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),title,date,notes:$('eventNotes').value.trim(),reminder});
+  save();$('eventDialog').close();render();maybeNotify();
+});
+$('settingsForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  state.workDays=Math.max(1,Math.min(90,Number($('workDays').value)||14));
+  state.restDays=Math.max(1,Math.min(90,Number($('restDays').value)||14));
+  state.anchorDate=$('anchorDate').value||'2026-10-15';
+  save();$('settingsDialog').close();render();
+});
+window.addEventListener('focus',maybeNotify);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)maybeNotify();});
+if('serviceWorker' in navigator && location.protocol!=='file:'){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
+load();render();
+</script>
+</body>
+</html>
